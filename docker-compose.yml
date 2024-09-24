@@ -12,11 +12,15 @@ services:
       - 0.0.0.0 
       - --send_host 
       - 0.0.0.0 
-      - --lm_model_name 
-      - microsoft/Phi-3-mini-4k-instruct 
       - --init_chat_role 
       - system
-      - --init_chat_prompt
+      - --llm
+      - open_api
+      - --open_api_stream
+      - True
+      - --open_api_model_name
+      - gpt-4o-mini
+      - --open_api_init_chat_prompt
       - "You are a helpful assistant"
       - --stt_compile_mode 
       - reduce-overhead 
@@ -31,6 +35,8 @@ services:
     volumes:
       - ./cache/:/root/.cache/
       - ./s2s_pipeline.py:/usr/src/app/s2s_pipeline.py
+    environment:
+      - OPEN_API_KEY=${OPEN_API_KEY}
     deploy:
       resources:
         reservations:
